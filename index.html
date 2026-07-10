@@ -149,6 +149,36 @@
             x-show="inviteOpened"
             x-transition.opacity
           >
+            <template x-if="hasOpeningVideo">
+              <div class="invite-blurred-bg" aria-hidden="true">
+                <div
+                  class="invite-blurred-poster"
+                  :style="`background-image: url('${openingPosterSrc}')`"
+                ></div>
+
+                <video
+                  class="invite-blurred-video"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  :poster="openingPosterSrc"
+                  tabindex="-1"
+                >
+                  <source
+                    :src="openingVideoWebmSrc"
+                    type="video/webm"
+                  >
+                  <source
+                    :src="openingVideoMp4Src"
+                    type="video/mp4"
+                  >
+                </video>
+
+                <div class="invite-blurred-overlay"></div>
+              </div>
+            </template>
             <div class="decor-slot decor-top-left"></div>
             <div class="decor-slot decor-top-right"></div>
             <div class="decor-slot decor-bottom-left"></div>
@@ -194,7 +224,68 @@
               <p class="invite-text" x-text="inviteText('dearGuestsText')"></p>
             </section>
 
-            <section class="invite-card date-card reveal calendar-folded">
+            <section class="invite-card date-card calendar-scroll" data-calendar-v2
+               x-effect="
+                 if (
+                   inviteOpened &&
+                   !$el.dataset.calendarObserverReady
+                 ) {
+                   $el.dataset.calendarObserverReady = 'true';
+
+                   $nextTick(function () {
+                     var card = $el;
+
+                     var openCalendar = function () {
+                       if (
+                         card.classList.contains(
+                           'calendar-scroll-open'
+                         )
+                       ) {
+                         return;
+                       }
+
+                       window.setTimeout(function () {
+                         card.classList.add(
+                           'calendar-scroll-open'
+                         );
+                       }, 120);
+                     };
+
+                     if (
+                       !(
+                         'IntersectionObserver' in window
+                       )
+                     ) {
+                       openCalendar();
+                       return;
+                     }
+
+                     var observer =
+                       new IntersectionObserver(
+                         function (entries) {
+                           var entry = entries[0];
+
+                           if (
+                             !entry ||
+                             !entry.isIntersecting
+                           ) {
+                             return;
+                           }
+
+                           openCalendar();
+                           observer.disconnect();
+                         },
+                         {
+                           threshold: 0.38,
+                           rootMargin:
+                             '0px 0px -12% 0px'
+                         }
+                       );
+
+                     observer.observe(card);
+                   });
+                 }
+               ">
               
               <p class="section-label"><span x-text="t('dateTitle')"></span></p>
               <div class="date-large" x-text="dateDay"></div>
@@ -203,6 +294,8 @@
                 <span>·</span>
                 <span x-text="inviteData.time"></span>
               </div>
+              
+
               <section
                 class="event-countdown"
                 x-show="inviteData.blocks.countdown"
@@ -366,47 +459,6 @@
     </main>
 
     <script type="module" src="/src/js/viewer.js"></script>
-  <script id="calendar-expand-observer">
-    document.addEventListener('DOMContentLoaded', () => {
-      const card = document.querySelector('.date-card');
-
-      if (!card) {
-        return;
-      }
-
-      const openCalendar = () => {
-        card.classList.remove('calendar-folded');
-        card.classList.add('calendar-open');
-      };
-
-      if (
-        !('IntersectionObserver' in window) ||
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      ) {
-        openCalendar();
-        return;
-      }
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          const entry = entries[0];
-
-          if (!entry?.isIntersecting) {
-            return;
-          }
-
-          openCalendar();
-          observer.disconnect();
-        },
-        {
-          threshold: 0.3,
-          rootMargin: '0px 0px -10% 0px'
-        }
-      );
-
-      observer.observe(card);
-    });
-  </script>
 </body>
 </html>
 

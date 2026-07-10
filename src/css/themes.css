@@ -1,0 +1,109 @@
+﻿[data-theme='modern-qazaq'] {
+  --bg-color: #FAF7F1;
+  --surface-color: #FFFDF8;
+  --text-primary: #25211D;
+  --text-secondary: #6F665C;
+  --accent-color: #B8915A;
+  --accent-soft: #E8D8BD;
+  --border-color: rgba(184, 145, 90, 0.28);
+  --shadow-soft: 0 18px 60px rgba(37, 33, 29, 0.08);
+  --font-heading: 'Noto Serif Local', Georgia, serif;
+  --font-body: 'Noto Sans Local', Inter, system-ui, sans-serif;
+}
+
+[data-theme='qazaq-gold'] {
+  --bg-color: #FDF8EF;
+  --surface-color: #FFFDF8;
+  --text-primary: #2B2118;
+  --text-secondary: #6F5D4C;
+  --accent-color: #C9A24D;
+  --accent-soft: #EFE0B8;
+  --border-color: rgba(201, 162, 77, 0.35);
+  --shadow-soft: 0 18px 70px rgba(43, 33, 24, 0.10);
+  --font-heading: 'Noto Serif Local', Georgia, serif;
+  --font-body: 'Noto Sans Local', Inter, system-ui, sans-serif;
+}
+
+[data-theme='floral-romantic'] {
+  --bg-color: #FFF8F6;
+  --surface-color: #FFFFFF;
+  --text-primary: #332823;
+  --text-secondary: #7D6D66;
+  --accent-color: #C98E8E;
+  --accent-soft: #F1DCDC;
+  --sage-color: #9EAD9A;
+  --border-color: rgba(201, 142, 142, 0.26);
+  --shadow-soft: 0 18px 70px rgba(98, 62, 55, 0.10);
+  --font-heading: 'Noto Serif Local', Georgia, serif;
+  --font-body: 'Noto Sans Local', Inter, system-ui, sans-serif;
+}
+
+[data-theme='modern-qazaq'] .decor-top-left {
+  top: 2.2rem;
+  left: 2rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-top: 2px solid var(--accent-color);
+  border-left: 2px solid var(--accent-color);
+  border-radius: 1.2rem 0 0 0;
+  opacity: .55;
+}
+
+[data-theme='modern-qazaq'] .decor-bottom-right {
+  right: 2rem;
+  bottom: 2rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-right: 2px solid var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+  border-radius: 0 0 1.2rem 0;
+  opacity: .55;
+}
+
+[data-theme='qazaq-gold'] .invite-canvas::before {
+  border-width: 2px;
+}
+
+[data-theme='qazaq-gold'] .decor-watermark {
+  opacity: .7;
+}
+
+[data-theme='floral-romantic'] .decor-watermark {
+  border-color: rgba(201, 142, 142, .22);
+  background:
+    radial-gradient(circle at 30% 30%, rgba(201, 142, 142, .18), transparent 26%),
+    radial-gradient(circle at 70% 60%, rgba(158, 173, 154, .16), transparent 28%);
+}
+
+/* Clean invite background: disable bubbles, corner frames and decorative slots */
+
+.decor-slot,
+.decor-top-left,
+.decor-top-right,
+.decor-bottom-left,
+.decor-bottom-right,
+.decor-watermark {
+  display: none !important;
+  background: none !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.invite-canvas::before,
+.invite-canvas::after,
+.invite-sheet::before,
+.invite-sheet::after,
+.invite-card::before,
+.invite-card::after,
+.invite-hero::before,
+.invite-hero::after,
+.invite-section::before,
+.invite-section::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}

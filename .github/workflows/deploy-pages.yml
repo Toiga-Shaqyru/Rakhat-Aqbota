@@ -1,4 +1,4 @@
-﻿name: Deploy Rakhat-Aqbota to GitHub Pages
+name: Deploy Rakhat-Aqbota to GitHub Pages
 
 on:
   push:
@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -33,7 +33,7 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: Configure GitHub Pages
+      - name: Configure Pages
         uses: actions/configure-pages@v5
 
       - name: Install dependencies
@@ -47,6 +47,6 @@ jobs:
         with:
           path: ./dist
 
-      - name: Deploy
+      - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4

@@ -224,69 +224,9 @@
               <p class="invite-text" x-text="inviteText('dearGuestsText')"></p>
             </section>
 
-            <section class="invite-card date-card calendar-scroll" data-calendar-v2
-               x-effect="
-                 if (
-                   inviteOpened &&
-                   !$el.dataset.calendarObserverReady
-                 ) {
-                   $el.dataset.calendarObserverReady = 'true';
-
-                   $nextTick(function () {
-                     var card = $el;
-
-                     var openCalendar = function () {
-                       if (
-                         card.classList.contains(
-                           'calendar-scroll-open'
-                         )
-                       ) {
-                         return;
-                       }
-
-                       window.setTimeout(function () {
-                         card.classList.add(
-                           'calendar-scroll-open'
-                         );
-                       }, 120);
-                     };
-
-                     if (
-                       !(
-                         'IntersectionObserver' in window
-                       )
-                     ) {
-                       openCalendar();
-                       return;
-                     }
-
-                     var observer =
-                       new IntersectionObserver(
-                         function (entries) {
-                           var entry = entries[0];
-
-                           if (
-                             !entry ||
-                             !entry.isIntersecting
-                           ) {
-                             return;
-                           }
-
-                           openCalendar();
-                           observer.disconnect();
-                         },
-                         {
-                           threshold: 0.38,
-                           rootMargin:
-                             '0px 0px -12% 0px'
-                         }
-                       );
-
-                     observer.observe(card);
-                   });
-                 }
-               ">
-              
+            <section
+              class="invite-card date-card"
+            >
               <p class="section-label"><span x-text="t('dateTitle')"></span></p>
               <div class="date-large" x-text="dateDay"></div>
               <div class="date-meta">

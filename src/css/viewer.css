@@ -2313,3 +2313,22 @@
 }
 
 /* END CALENDAR V2 AND SHARPER BACKGROUND */
+
+
+/* Production: always visible countdown */
+
+.date-card .event-countdown {
+  display: block !important;
+  max-height: 20rem !important;
+  margin-top: 1.4rem !important;
+  padding-top: 1.2rem !important;
+  border-top-color: var(--border-color) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  overflow: visible !important;
+  transform: none !important;
+}
+
+.date-card::after {
+  display: none !important;
+}

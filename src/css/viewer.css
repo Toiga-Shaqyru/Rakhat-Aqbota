@@ -2332,3 +2332,145 @@
 .date-card::after {
   display: none !important;
 }
+
+
+/* BEGIN DESKTOP RSVP FIX */
+
+@media (min-width: 720px) {
+  .viewer-page .viewer-bottom-actions {
+    position: fixed !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: 1rem !important;
+
+    z-index: 50 !important;
+
+    display: flex !important;
+    width: min(calc(100% - 2rem), 28rem) !important;
+    margin: 0 !important;
+
+    transform: translateX(-50%) !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+
+    border: 1px solid var(--border-color) !important;
+    border-radius: 999px !important;
+
+    background:
+      rgba(255, 252, 244, .94) !important;
+
+    box-shadow:
+      0 18px 48px rgba(55, 37, 16, .20) !important;
+
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+  }
+
+  .viewer-page .viewer-bottom-actions .primary-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-height: 3.1rem !important;
+
+    color: #fff !important;
+    background: var(--accent-color) !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .viewer-page[data-opened='true'] .invite-canvas {
+    padding-bottom: 7rem !important;
+  }
+
+  .viewer-page[data-opened='true'] .invite-footer {
+    margin-bottom: 4rem !important;
+  }
+}
+
+/* END DESKTOP RSVP FIX */
+
+
+/* BEGIN FINAL WEDDING VIDEO */
+
+.final-wedding-video-section {
+  position: relative;
+  z-index: 1;
+
+  width: min(calc(100% - 2rem), 28rem);
+  max-width: 28rem;
+
+  margin: 1.2rem auto;
+
+  box-sizing: border-box;
+}
+
+.final-wedding-video-frame {
+  position: relative;
+
+  width: 100%;
+  aspect-ratio: 16 / 9;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(201, 162, 77, .48);
+  border-radius: 1.35rem;
+
+  background: #211817;
+
+  box-shadow:
+    0 18px 44px rgba(72, 48, 18, .16),
+    inset 0 0 0 1px rgba(255, 244, 213, .35);
+}
+
+.final-wedding-video {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  background: #211817;
+}
+
+.final-wedding-video-overlay {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(31, 21, 12, .03),
+      transparent 35%,
+      transparent 70%,
+      rgba(31, 21, 12, .14)
+    ),
+    radial-gradient(
+      circle at center,
+      transparent 60%,
+      rgba(31, 21, 12, .10)
+    );
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 244, 213, .25);
+}
+
+@media (max-width: 719px) {
+  .final-wedding-video-section {
+    width: calc(100% - 1.4rem);
+    margin-block: 1rem;
+  }
+
+  .final-wedding-video-frame {
+    border-radius: 1.2rem;
+  }
+}
+
+/* END FINAL WEDDING VIDEO */

@@ -2474,3 +2474,66 @@
 }
 
 /* END FINAL WEDDING VIDEO */
+
+
+/* BEGIN WEDDING HOSTS */
+
+/*
+ * Финальный блок:
+ * молодожёны сверху, хозяева торжества ниже.
+ */
+.viewer-page .invite-footer {
+  min-height: 12rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.viewer-page .invite-footer > p {
+  margin-bottom: .45rem;
+}
+
+.wedding-hosts {
+  width: min(100%, 19rem);
+
+  margin: 1.4rem auto 0;
+  padding-top: 1.15rem;
+
+  border-top: 1px solid var(--border-color);
+
+  text-align: center;
+}
+
+.wedding-hosts-label {
+  display: block;
+
+  margin-bottom: .5rem;
+
+  color: var(--accent-color);
+
+  font-family: var(--font-body);
+  font-size: .68rem;
+  font-weight: 900;
+  line-height: 1.4;
+
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.viewer-page .invite-footer .wedding-hosts-names {
+  display: block;
+
+  color: var(--text-primary);
+
+  font-family: var(--font-heading);
+  font-size: clamp(1.45rem, 6vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* END WEDDING HOSTS */

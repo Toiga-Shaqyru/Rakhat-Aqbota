@@ -1,4 +1,4 @@
-import { translate, normalizeLang } from './translations.js';
+﻿import { translate, normalizeLang } from './translations.js';
 import { cloneDefaultInviteTexts, defaultInviteTexts } from './defaultTexts.js';
 import Alpine from 'alpinejs';
 import { initReveal } from './reveal.js';
@@ -12,13 +12,13 @@ window.Alpine = Alpine;
 
 const defaultInviteData = {
   theme: 'qazaq-gold',
-  groom: 'Рахат',
-  bride: 'Ақбота',
+  groom: 'Р Р°С…Р°С‚',
+  bride: 'РђТ›Р±РѕС‚Р°',
   date: '2026-08-17',
   time: '17:00',
   venue: 'Sanzhar Grand Ballroom',
-  city: 'Алматы',
-  address: 'Атагельды Исмаилова, 29а',
+  city: 'РђР»РјР°С‚С‹',
+  address: 'РђС‚Р°РіРµР»СЊРґС‹ РСЃРјР°РёР»РѕРІР°, 29Р°',
   map2gis: 'https://go.2gis.com/jeKRX',
   mapGoogle: '',
   lang: 'kk',
@@ -130,14 +130,6 @@ document.addEventListener('alpine:init', () => {
     },
 
     init() {
-      // Standalone invite: clear stale builder draft
-      try {
-        localStorage.removeItem('inviteBuilder:lastDraft');
-      } catch (error) {
-        console.warn('Could not clear stale invite draft', error);
-      }
-
-      this.inviteData = loadInviteData();
       this.applyLangFromUrl();
 
       window.setInterval(() => {
@@ -214,7 +206,7 @@ document.addEventListener('alpine:init', () => {
     },
 
     get dateDay() {
-      if (Number.isNaN(this.eventDate.getTime())) return '—';
+      if (Number.isNaN(this.eventDate.getTime())) return 'вЂ”';
 
       return new Intl.DateTimeFormat('ru-RU', { day: '2-digit' }).format(this.eventDate);
     },
@@ -230,48 +222,48 @@ document.addEventListener('alpine:init', () => {
 
       const months = {
         kk: [
-          'қаңтар',
-          'ақпан',
-          'наурыз',
-          'сәуір',
-          'мамыр',
-          'маусым',
-          'шілде',
-          'тамыз',
-          'қыркүйек',
-          'қазан',
-          'қараша',
-          'желтоқсан'
+          'Т›Р°ТЈС‚Р°СЂ',
+          'Р°Т›РїР°РЅ',
+          'РЅР°СѓСЂС‹Р·',
+          'СЃУ™СѓС–СЂ',
+          'РјР°РјС‹СЂ',
+          'РјР°СѓСЃС‹Рј',
+          'С€С–Р»РґРµ',
+          'С‚Р°РјС‹Р·',
+          'Т›С‹СЂРєТЇР№РµРє',
+          'Т›Р°Р·Р°РЅ',
+          'Т›Р°СЂР°С€Р°',
+          'Р¶РµР»С‚РѕТ›СЃР°РЅ'
         ],
         ru: [
-          'января',
-          'февраля',
-          'марта',
-          'апреля',
-          'мая',
-          'июня',
-          'июля',
-          'августа',
-          'сентября',
-          'октября',
-          'ноября',
-          'декабря'
+          'СЏРЅРІР°СЂСЏ',
+          'С„РµРІСЂР°Р»СЏ',
+          'РјР°СЂС‚Р°',
+          'Р°РїСЂРµР»СЏ',
+          'РјР°СЏ',
+          'РёСЋРЅСЏ',
+          'РёСЋР»СЏ',
+          'Р°РІРіСѓСЃС‚Р°',
+          'СЃРµРЅС‚СЏР±СЂСЏ',
+          'РѕРєС‚СЏР±СЂСЏ',
+          'РЅРѕСЏР±СЂСЏ',
+          'РґРµРєР°Р±СЂСЏ'
         ]
       };
 
       if (lang === 'kk') {
-        return `${months.kk[monthIndex]} ${year} ж.`;
+        return `${months.kk[monthIndex]} ${year} Р¶.`;
       }
 
-      return `${months.ru[monthIndex]} ${year} г.`;
+      return `${months.ru[monthIndex]} ${year} Рі.`;
     },
 
     get localizedAddress() {
       if (this.inviteData.lang === 'ru') {
-        return 'г. Алматы, ул. Атагельды Исмаилова, 29а';
+        return 'Рі. РђР»РјР°С‚С‹, СѓР». РђС‚Р°РіРµР»СЊРґС‹ РСЃРјР°РёР»РѕРІР°, 29Р°';
       }
 
-      return 'Алматы қаласы, Атагельды Исмаилова көшесі, 29а';
+      return 'РђР»РјР°С‚С‹ Т›Р°Р»Р°СЃС‹, РђС‚Р°РіРµР»СЊРґС‹ РСЃРјР°РёР»РѕРІР° РєУ©С€РµСЃС–, 29Р°';
     },
 
     get countdownParts() {
@@ -353,7 +345,7 @@ document.addEventListener('alpine:init', () => {
         return;
       }
 
-      // В сайте используется kk, а старая логика Tally ожидает kz.
+      // Р’ СЃР°Р№С‚Рµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ kk, Р° СЃС‚Р°СЂР°СЏ Р»РѕРіРёРєР° Tally РѕР¶РёРґР°РµС‚ kz.
       const tallyLang = this.inviteData.lang === 'ru' ? 'ru' : 'kz';
       const separator = baseUrl.includes('?') ? '&' : '?';
       const url = `${baseUrl}${separator}lang=${encodeURIComponent(tallyLang)}`;
@@ -433,6 +425,7 @@ document.addEventListener('alpine:init', () => {
 });
 
 Alpine.start();
+
 
 
 

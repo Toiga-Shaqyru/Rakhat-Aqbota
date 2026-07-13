@@ -49,6 +49,8 @@ document.addEventListener('alpine:init', () => {
   Alpine.data('inviteViewer', () => ({
     previewMode: false,
     inviteOpened: false,
+    showScrollHint: false,
+    scrollHintTimer: null,
     openingAnimating: false,
     openingPhase: 'idle',
     isMusicPlaying: false,
@@ -139,6 +141,21 @@ document.addEventListener('alpine:init', () => {
 
       this.inviteData = loadInviteData();
       this.applyLangFromUrl();
+
+      // BEGIN SCROLL INDICATOR LISTENER
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (
+            this.showScrollHint &&
+            window.scrollY > 48
+          ) {
+            this.hideScrollIndicator();
+          }
+        },
+        { passive: true }
+      );
+      // END SCROLL INDICATOR LISTENER
 
       window.setInterval(() => {
         this.countdownTick = Date.now();
@@ -394,6 +411,41 @@ document.addEventListener('alpine:init', () => {
       this.isMusicPlaying = false;
     },
 
+    // BEGIN SCROLL INDICATOR METHODS
+
+    showScrollIndicator() {
+      if (this.scrollHintTimer) {
+        window.clearTimeout(this.scrollHintTimer);
+      }
+
+      this.showScrollHint = true;
+
+      this.scrollHintTimer = window.setTimeout(() => {
+        this.showScrollHint = false;
+        this.scrollHintTimer = null;
+      }, 8000);
+    },
+
+    hideScrollIndicator() {
+      this.showScrollHint = false;
+
+      if (this.scrollHintTimer) {
+        window.clearTimeout(this.scrollHintTimer);
+        this.scrollHintTimer = null;
+      }
+    },
+
+    scrollToContent() {
+      this.hideScrollIndicator();
+
+      window.scrollBy({
+        top: Math.max(window.innerHeight * 0.72, 420),
+        behavior: 'smooth'
+      });
+    },
+
+    // END SCROLL INDICATOR METHODS
+
     openInvite() {
       const openingVideo = this.$refs.openingVideo;
       const openingBgVideo = this.$refs.openingBgVideo;
@@ -415,6 +467,14 @@ document.addEventListener('alpine:init', () => {
 
       window.setTimeout(() => {
         this.inviteOpened = true;
+
+        // BEGIN SHOW SCROLL INDICATOR
+        window.setTimeout(() => {
+          if (window.scrollY <= 48) {
+            this.showScrollIndicator();
+          }
+        }, 1350);
+        // END SHOW SCROLL INDICATOR
         this.openingPhase = 'opening';
 
         this.$nextTick(() => {

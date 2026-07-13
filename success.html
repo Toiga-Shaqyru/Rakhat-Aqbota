@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Рақмет!</title>
+
+  <style>
+    :root {
+      color-scheme: light;
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+
+      display: grid;
+      place-items: center;
+
+      padding: 1.5rem;
+
+      color: #362719;
+
+      background:
+        linear-gradient(
+          rgba(50, 35, 20, .48),
+          rgba(50, 35, 20, .62)
+        ),
+        url("/assets/openings/romantic-floral/poster.webp")
+          center / cover fixed;
+    }
+
+    .success-card {
+      width: min(100%, 31rem);
+
+      padding: 3.2rem 2rem;
+
+      border: 1px solid rgba(213, 169, 75, .65);
+      border-radius: 2rem;
+
+      background: rgba(255, 250, 239, .94);
+
+      box-shadow:
+        0 2rem 5rem rgba(30, 20, 10, .32),
+        inset 0 1px 0 rgba(255, 255, 255, .9);
+
+      text-align: center;
+
+      opacity: 0;
+      transform: translateY(1.5rem) scale(.97);
+
+      animation:
+        appear .8s cubic-bezier(.22, 1, .36, 1)
+        forwards;
+    }
+
+    .ornament {
+      margin-bottom: 1rem;
+
+      color: #c79838;
+
+      font-size: 1.6rem;
+      letter-spacing: .4rem;
+    }
+
+    h1 {
+      margin: 0 0 1rem;
+
+      color: #b98426;
+
+      font-size: clamp(2.7rem, 10vw, 4.3rem);
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    p {
+      margin: 0 auto;
+
+      max-width: 24rem;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+
+    .names {
+      display: block;
+
+      margin-top: 1.6rem;
+
+      color: #a87522;
+
+      font-size: 1.35rem;
+      font-style: italic;
+    }
+
+    a {
+      display: inline-flex;
+
+      margin-top: 2.2rem;
+      padding: .9rem 1.5rem;
+
+      border: 1px solid #c79838;
+      border-radius: 999px;
+
+      color: #765018;
+      background: rgba(255, 255, 255, .55);
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      font-size: .88rem;
+      font-weight: 700;
+
+      text-decoration: none;
+
+      transition:
+        transform .2s ease,
+        background .2s ease;
+    }
+
+    a:hover {
+      transform: translateY(-2px);
+      background: #fff;
+    }
+
+    @keyframes appear {
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .success-card {
+        padding: 2.7rem 1.4rem;
+        border-radius: 1.6rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="success-card">
+    <div class="ornament">✦ ❦ ✦</div>
+
+    <h1 id="title">Рақмет!</h1>
+
+    <p id="message">
+      Жауабыңыз қабылданды.
+      Сізді Рахат пен Ақботаның үйлену тойында
+      асыға күтеміз!
+    </p>
+
+    <span class="names">Рахат & Ақбота</span>
+
+    <a id="backLink" href="/">
+      Шақыруға оралу
+    </a>
+  </main>
+
+  <script>
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+
+      const language =
+        params.get('lang') === 'ru'
+          ? 'ru'
+          : 'kz';
+
+      const content = {
+        kz: {
+          title: 'Рақмет!',
+          message:
+            'Жауабыңыз қабылданды. ' +
+            'Сізді Рахат пен Ақботаның үйлену тойында ' +
+            'асыға күтеміз!',
+          back: 'Шақыруға оралу',
+          documentTitle: 'Рақмет!'
+        },
+
+        ru: {
+          title: 'Спасибо!',
+          message:
+            'Ваш ответ принят. ' +
+            'С нетерпением ждём вас ' +
+            'на свадьбе Рахата и Акботы!',
+          back: 'Вернуться к приглашению',
+          documentTitle: 'Спасибо!'
+        }
+      };
+
+      const selected = content[language];
+
+      document.documentElement.lang =
+        language === 'ru'
+          ? 'ru'
+          : 'kk';
+
+      document.title = selected.documentTitle;
+
+      document.getElementById('title').textContent =
+        selected.title;
+
+      document.getElementById('message').textContent =
+        selected.message;
+
+      document.getElementById('backLink').textContent =
+        selected.back;
+    })();
+  </script>
+</body>
+</html>
